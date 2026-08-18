@@ -1,0 +1,175 @@
+/* ============================================
+   Featured Artists Section
+   ============================================ */
+
+.artists-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 20px;
+}
+
+.artist-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  padding: 12px 8px;
+  border-radius: var(--radius-lg);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.artist-card:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+  transform: translateY(-3px);
+}
+
+.artist-avatar-wrap {
+  position: relative;
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  margin-bottom: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+  background-color: #1a1b24;
+}
+
+/* Pulsing / Rotating Neon Ring when playing */
+.artist-playing-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px dashed #ff2555;
+  animation: audioRingSpin 8s linear infinite;
+  box-shadow: 0 0 16px rgba(255, 37, 85, 0.6);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.artist-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.4s ease;
+}
+
+.artist-avatar-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 37, 85, 0.35) 0%,
+    rgba(10, 11, 16, 0.65) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.artist-play-indicator {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 5;
+  background: rgba(255, 37, 85, 0.7);
+  border-radius: 50%;
+}
+
+/* Live Equalizer on Artist Avatar */
+.artist-live-eq-badge {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  z-index: 5;
+  background: rgba(10, 11, 16, 0.65);
+  border-radius: 50%;
+}
+
+/* Hover effects */
+.artist-card:hover .artist-avatar-wrap,
+.artist-card.playing .artist-avatar-wrap {
+  transform: scale(1.06);
+  border-color: var(--gaana-red);
+  box-shadow: 0 0 24px rgba(255, 37, 85, 0.5), 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.artist-card:hover .artist-avatar {
+  transform: scale(1.05);
+}
+
+.artist-card:hover .artist-avatar-overlay {
+  opacity: 1;
+}
+
+.artist-card:hover .artist-play-indicator {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.artist-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+  transition: color 0.2s ease;
+}
+
+.active-artist-name {
+  color: #ff3b68;
+  font-weight: 700;
+}
+
+.artist-role {
+  font-size: 12px;
+  color: var(--text-gray);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .artists-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .artists-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 12px;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .artists-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .artist-card {
+    min-width: 105px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+  .artist-avatar-wrap {
+    width: 85px;
+    height: 85px;
+  }
+}

@@ -1,0 +1,428 @@
+/* ============================================
+   Gaana Premium Master Footer
+   ============================================ */
+
+.footer-master {
+  background-color: #050609;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  margin-top: 80px;
+  padding-top: 56px;
+  padding-bottom: 90px;
+  /* Space above sticky player */
+  color: #9ca3af;
+  position: relative;
+  width: 100%;
+}
+
+.footer-container {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 0 var(--page-padding);
+}
+
+/* =================================================================
+   1. TOP ROW: Brand Story, Social Links, App Store Badges
+   ================================================================= */
+.footer-top-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1.1fr 1.1fr;
+  gap: 48px;
+  padding-bottom: 40px;
+}
+
+/* Col 1: Brand & Description */
+.footer-brand-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-brand-logo {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--gaana-red);
+  font-style: italic;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 12px;
+  transition: transform 0.2s ease;
+}
+
+.footer-brand-logo:hover {
+  transform: scale(1.03);
+}
+
+.footer-brand-tagline {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.footer-brand-desc {
+  font-size: 12.5px;
+  color: #9ca3af;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  max-width: 440px;
+}
+
+.footer-brand-subdesc {
+  font-size: 12.5px;
+  color: #9ca3af;
+  line-height: 1.6;
+  max-width: 440px;
+}
+
+/* Badges across columns */
+.footer-section-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ff3b68;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+/* Col 2: Social Section */
+.footer-social-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-social-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.social-icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: #12131b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  transition: all 0.25s ease;
+}
+
+.social-icon-btn:hover {
+  background-color: var(--gaana-red);
+  border-color: var(--gaana-red);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 14px rgba(255, 37, 85, 0.4);
+}
+
+.footer-social-text {
+  font-size: 12.5px;
+  color: #9ca3af;
+  margin-bottom: 6px;
+}
+
+.footer-social-link {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #ff3b68;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.footer-social-link:hover {
+  color: #ff6083;
+  text-decoration: underline;
+}
+
+/* Col 3: App Store Section */
+.footer-app-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-app-desc {
+  font-size: 12.5px;
+  color: #9ca3af;
+  margin-bottom: 18px;
+}
+
+.footer-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.store-badge-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #0d0e15;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 8px 14px;
+  color: #ffffff;
+  transition: all 0.25s ease;
+  min-width: 135px;
+}
+
+.store-badge-btn:hover {
+  background-color: #161824;
+  border-color: rgba(255, 37, 85, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+.store-badge-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.store-badge-sub {
+  font-size: 9.5px;
+  font-weight: 500;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+.store-badge-main {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+/* =================================================================
+   2. MIDDLE ROW: Quick Utility Links Bar
+   ================================================================= */
+.footer-quick-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 40px;
+}
+
+.quick-bar-item-wrap {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.quick-bar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #d1d5db;
+  transition: all 0.2s ease;
+}
+
+.quick-bar-link:hover {
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.quick-bar-separator {
+  width: 1px;
+  height: 14px;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* =================================================================
+   3. MUSIC DIRECTORY (2 rows x 6 columns)
+   ================================================================= */
+.footer-directory-container {
+  margin-bottom: 48px;
+}
+
+.footer-directory-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+}
+
+.directory-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.directory-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.directory-title-icon {
+  font-size: 14px;
+  color: #ff3b68;
+}
+
+.directory-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.directory-link {
+  font-size: 12px;
+  color: #8b92a2;
+  transition: all 0.18s ease;
+  display: inline-block;
+  line-height: 1.4;
+  white-space: normal;
+}
+
+.directory-link:hover {
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+.directory-view-all {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #ff3b68;
+  display: inline-block;
+  margin-top: 2px;
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.directory-view-all:hover {
+  color: #ff6083;
+  transform: translateX(2px);
+}
+
+/* =================================================================
+   4. BOTTOM COPYRIGHT BAR
+   ================================================================= */
+.footer-copyright-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.footer-copyright-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-mini-logo {
+  font-size: 19px;
+  font-weight: 800;
+  font-style: italic;
+  color: var(--gaana-red);
+  letter-spacing: -0.04em;
+}
+
+.footer-copy-text {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.footer-copyright-center {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.footer-heart-icon {
+  font-size: 13px;
+  display: inline-block;
+  animation: albumBeatPulse 1.8s ease-in-out infinite;
+}
+
+.footer-copyright-right {
+  font-size: 12px;
+  color: #6b7280;
+  text-align: right;
+}
+
+/* =================================================================
+   RESPONSIVE DESIGN
+   ================================================================= */
+@media (max-width: 1100px) {
+  .footer-directory-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .footer-top-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-top-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-quick-bar {
+    gap: 14px;
+    justify-content: flex-start;
+  }
+
+  .quick-bar-item-wrap {
+    gap: 14px;
+  }
+
+  .footer-directory-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+
+  .footer-copyright-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .footer-copyright-right {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-directory-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-badges-row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .store-badge-btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,453 @@
+/* ============================================
+   Gaana Radio Card (Height-Adjusted with Moods)
+   ============================================ */
+
+.radio-card-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Spacer matching the Moods & Genres header height on desktop */
+.radio-header-align-spacer {
+  height: 60px;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.radio-card {
+  background: linear-gradient(135deg, #140b19 0%, #0d0813 50%, #09060c 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 28px 24px 28px 30px;
+  flex: 1;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+}
+
+/* Nebula / Atmospheric Crimson Glow */
+.radio-glow-bg {
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 90%;
+  height: 140%;
+  background: radial-gradient(
+    circle at 70% 50%,
+    rgba(255, 37, 85, 0.38) 0%,
+    rgba(210, 20, 70, 0.22) 35%,
+    rgba(120, 10, 45, 0.1) 60%,
+    transparent 80%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* --- Left Content --- */
+.radio-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 220px;
+}
+
+.radio-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.radio-desc {
+  font-size: 14px;
+  color: #d1d5db;
+  line-height: 1.5;
+  margin-bottom: 22px;
+  font-weight: 400;
+}
+
+/* CTA Button */
+.radio-cta-btn {
+  background: linear-gradient(90deg, #ff2855 0%, #ff114d 60%, #e60046 100%);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  padding: 10px 22px 10px 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 18px rgba(255, 37, 85, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+  border: none;
+}
+
+.radio-cta-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 6px 24px rgba(255, 37, 85, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  background: linear-gradient(90deg, #ff3b65 0%, #ff2059 60%, #f00850 100%);
+}
+
+.radio-cta-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.radio-btn-arrow {
+  font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.radio-cta-btn:hover .radio-btn-arrow {
+  transform: translateX(3px);
+}
+
+/* --- Right Vinyl Presentation --- */
+.vinyl-wrapper {
+  position: relative;
+  width: 175px;
+  height: 175px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  margin-right: -6px;
+}
+
+/* --- Sound Wave Pulses --- */
+.radio-soundwave {
+  position: absolute;
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 37, 85, 0.7);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  animation: soundWavePulse 3.6s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+}
+
+.wave-1 { animation-delay: 0s; }
+.wave-2 { animation-delay: 1.2s; }
+.wave-3 { animation-delay: 2.4s; }
+
+@keyframes soundWavePulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(255, 37, 85, 0);
+  }
+  25% {
+    opacity: 0.75;
+    box-shadow: 0 0 16px rgba(255, 37, 85, 0.5), inset 0 0 12px rgba(255, 37, 85, 0.3);
+  }
+  70% {
+    opacity: 0.3;
+    border-color: rgba(255, 94, 126, 0.4);
+  }
+  100% {
+    transform: scale(1.65);
+    opacity: 0;
+    box-shadow: 0 0 30px rgba(255, 37, 85, 0);
+  }
+}
+
+/* --- Floating Music Notes Out of Vinyl --- */
+.radio-music-note {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+  color: #ff2a56;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 37, 85, 0.85), 0 0 20px rgba(255, 37, 85, 0.5);
+  opacity: 0;
+}
+
+.r-note-1 {
+  font-size: 24px;
+  top: 35%;
+  left: 30%;
+  animation: noteFloatUpLeft 4.2s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.r-note-2 {
+  font-size: 20px;
+  top: 30%;
+  left: 45%;
+  color: #ff5e7e;
+  animation: noteFloatUp 4.8s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.r-note-3 {
+  font-size: 26px;
+  top: 40%;
+  left: 55%;
+  animation: noteFloatUpRight 4.4s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.r-note-4 {
+  font-size: 18px;
+  top: 45%;
+  left: 35%;
+  color: #ff7597;
+  animation: noteFloatWave 5.2s ease-in-out infinite;
+  animation-delay: 3s;
+}
+
+.r-note-5 {
+  font-size: 22px;
+  top: 25%;
+  left: 50%;
+  animation: noteFloatArc 4.5s ease-in-out infinite;
+  animation-delay: 1.8s;
+}
+
+@keyframes noteFloatUpLeft {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0.3);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+    transform: translate(-20px, -25px) rotate(-15deg) scale(1);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translate(-65px, -80px) rotate(-25deg) scale(1.15);
+  }
+  100% {
+    transform: translate(-110px, -140px) rotate(-40deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes noteFloatUp {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0.3);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.95;
+    transform: translate(-10px, -30px) rotate(12deg) scale(1.1);
+  }
+  70% {
+    opacity: 0.6;
+    transform: translate(-25px, -95px) rotate(-8deg) scale(1);
+  }
+  100% {
+    transform: translate(-40px, -150px) rotate(20deg) scale(0.4);
+    opacity: 0;
+  }
+}
+
+@keyframes noteFloatUpRight {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0.3);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+    transform: translate(15px, -20px) rotate(15deg) scale(1);
+  }
+  60% {
+    opacity: 0.75;
+    transform: translate(45px, -70px) rotate(30deg) scale(1.2);
+  }
+  100% {
+    transform: translate(75px, -125px) rotate(45deg) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes noteFloatWave {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0.2);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+    transform: translate(-15px, -25px) rotate(-10deg) scale(0.9);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translate(-50px, -60px) rotate(15deg) scale(1.1);
+  }
+  80% {
+    opacity: 0.4;
+    transform: translate(-80px, -105px) rotate(-15deg) scale(0.8);
+  }
+  100% {
+    transform: translate(-105px, -135px) rotate(10deg) scale(0.3);
+    opacity: 0;
+  }
+}
+
+@keyframes noteFloatArc {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0.4);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+    transform: translate(-30px, -35px) rotate(-18deg) scale(1.1);
+  }
+  70% {
+    opacity: 0.7;
+    transform: translate(-70px, -90px) rotate(12deg) scale(1);
+  }
+  100% {
+    transform: translate(-95px, -130px) rotate(-20deg) scale(0.4);
+    opacity: 0;
+  }
+}
+
+/* Ambient Backlight Glow */
+.vinyl-ambient-glow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 37, 85, 0.55) 0%,
+    rgba(230, 20, 75, 0.3) 40%,
+    transparent 70%
+  );
+  filter: blur(24px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Vinyl Disc */
+.vinyl-disc {
+  position: relative;
+  z-index: 2;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: #0e0d13;
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 0 20px rgba(0, 0, 0, 0.9);
+  animation: spinVinyl 10s linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Concentric Grooves */
+.vinyl-groove-rings {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle at center,
+    rgba(30, 28, 38, 0.9) 0px,
+    rgba(30, 28, 38, 0.9) 1.5px,
+    rgba(14, 13, 19, 0.95) 2px,
+    rgba(14, 13, 19, 0.95) 4px,
+    rgba(38, 35, 48, 0.8) 5px,
+    rgba(14, 13, 19, 0.95) 7px
+  );
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+/* Glossy Sheen Highlights (Reflections) */
+.vinyl-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 45deg,
+    transparent 0deg,
+    rgba(255, 255, 255, 0.12) 30deg,
+    rgba(255, 255, 255, 0.28) 45deg,
+    rgba(255, 255, 255, 0.08) 60deg,
+    transparent 90deg,
+    transparent 220deg,
+    rgba(255, 255, 255, 0.12) 245deg,
+    rgba(255, 255, 255, 0.28) 255deg,
+    rgba(255, 255, 255, 0.08) 270deg,
+    transparent 300deg
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Center Label */
+.vinyl-center-label {
+  position: relative;
+  z-index: 4;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e6204c 0%, #b81039 100%);
+  box-shadow:
+    0 0 10px rgba(0, 0, 0, 0.6),
+    0 0 0 2px #0a090e,
+    inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vinyl-inner-ring {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.35);
+}
+
+.vinyl-spindle-hole {
+  position: relative;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background-color: #08070b;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .radio-header-align-spacer {
+    display: none;
+  }
+  .radio-card {
+    min-height: 220px;
+    padding: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .vinyl-wrapper {
+    width: 140px;
+    height: 140px;
+  }
+  .vinyl-disc {
+    width: 130px;
+    height: 130px;
+  }
+  .vinyl-center-label {
+    width: 48px;
+    height: 48px;
+  }
+}

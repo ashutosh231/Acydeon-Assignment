@@ -1,0 +1,315 @@
+/* ============================================
+   Hero Section
+   ============================================ */
+
+.hero-container {
+  width: 100%;
+  height: 440px;
+  margin-bottom: var(--section-gap);
+  display: flex;
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  animation: heroGlow 8s ease-in-out infinite;
+}
+
+/* Background video & image */
+.hero-bg-video,
+.hero-bg-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+  pointer-events: none;
+}
+
+/* Gradient overlay */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero-overlay);
+  z-index: 10;
+  width: 60%;
+}
+
+/* Floating notes */
+.floating-note {
+  position: absolute;
+  font-size: 24px;
+  color: var(--gaana-red);
+  pointer-events: none;
+  z-index: 5;
+  animation: floatNote var(--note-duration, 7s) ease-in-out infinite;
+  animation-delay: var(--note-delay, 0s);
+}
+
+/* Speaker Sound Toggle Button */
+.hero-sound-toggle-btn {
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  z-index: 25;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(10, 11, 16, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #e5e7eb;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hero-sound-toggle-btn:hover {
+  background: rgba(10, 11, 16, 0.9);
+  border-color: var(--gaana-red);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 16px rgba(255, 37, 85, 0.35);
+}
+
+.hero-sound-toggle-btn.sound-active {
+  background: rgba(255, 37, 85, 0.2);
+  border-color: var(--gaana-red);
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(255, 37, 85, 0.5);
+}
+
+.hero-sound-label {
+  letter-spacing: 0.02em;
+}
+
+.hero-sound-wave-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ff2555;
+  animation: albumBeatPulse 1.2s ease-in-out infinite;
+}
+
+/* Hero text content */
+.hero-content {
+  position: relative;
+  z-index: 20;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 56px;
+  max-width: 580px;
+}
+
+/* Hero Title & Typography Animations */
+.hero-title {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.7);
+  cursor: default;
+  user-select: none;
+}
+
+/* Animated Shimmering Neon Gradient on "Feels Like You" */
+.animated-title-gradient {
+  font-size: 64px;
+  font-weight: 800;
+  display: inline-block;
+  background: linear-gradient(
+    90deg,
+    #ff2555 0%,
+    #ff6b8b 25%,
+    #ffffff 50%,
+    #ff6b8b 75%,
+    #ff2555 100%
+  );
+  background-size: 200% auto;
+  color: #ff2555;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerTitleGradient 4s linear infinite, titleAuraPulse 3s ease-in-out infinite alternate;
+  will-change: background-position;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes shimmerTitleGradient {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes titleAuraPulse {
+  0% {
+    filter: drop-shadow(0 0 10px rgba(255, 37, 85, 0.35));
+  }
+  100% {
+    filter: drop-shadow(0 0 22px rgba(255, 37, 85, 0.75)) drop-shadow(0 0 35px rgba(255, 94, 126, 0.4));
+  }
+}
+
+.hero-title:hover .animated-title-gradient {
+  transform: scale(1.02);
+  filter: drop-shadow(0 0 28px rgba(255, 37, 85, 0.9)) drop-shadow(0 0 45px rgba(192, 38, 211, 0.5));
+}
+
+.hero-subtitle {
+  color: var(--text-light);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.hero-subtitle-second {
+  margin-bottom: 32px;
+}
+
+/* Hero CTAs */
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.hero-btn-primary {
+  border-radius: var(--radius-full);
+  padding: 14px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+}
+
+.hero-btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-glow {
+  animation: heroBtnGlow 2.5s ease-in-out infinite;
+}
+
+.hero-btn-secondary {
+  border: 1px solid var(--border-lighter);
+  border-radius: var(--radius-full);
+  padding: 14px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.hero-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Trust badge */
+.hero-trust {
+  color: var(--text-gray);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Responsive Hero */
+@media (max-width: 1024px) {
+  .hero-container {
+    height: 400px;
+  }
+  .hero-content {
+    padding-left: 36px;
+    max-width: 500px;
+  }
+  .hero-title {
+    font-size: 44px;
+  }
+  .hero-title-accent,
+  .animated-title-gradient {
+    font-size: 50px;
+  }
+  .hero-overlay {
+    width: 70%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    height: auto;
+    min-height: 360px;
+    padding: 32px 20px;
+  }
+  .hero-content {
+    padding-left: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+  .hero-title {
+    font-size: 34px;
+    margin-bottom: 16px;
+  }
+  .hero-title-accent,
+  .animated-title-gradient {
+    font-size: 38px;
+  }
+  .hero-subtitle {
+    font-size: 14px;
+  }
+  .hero-subtitle-second {
+    margin-bottom: 24px;
+  }
+  .hero-overlay {
+    width: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(13, 7, 20, 0.95) 0%,
+      rgba(13, 7, 20, 0.85) 60%,
+      rgba(13, 7, 20, 0.4) 100%
+    );
+  }
+  .hero-bg-video,
+  .hero-bg-image {
+    width: 100%;
+    opacity: 0.55;
+  }
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .hero-btn-primary,
+  .hero-btn-secondary {
+    text-align: center;
+    justify-content: center;
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 390px) {
+  .hero-title {
+    font-size: 28px;
+  }
+  .hero-title-accent,
+  .animated-title-gradient {
+    font-size: 32px;
+  }
+}

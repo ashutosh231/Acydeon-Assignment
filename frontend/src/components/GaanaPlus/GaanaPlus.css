@@ -1,0 +1,144 @@
+/* ============================================
+   Gaana Plus Sidebar
+   ============================================ */
+
+/* Plus Card */
+.plus-card {
+  background: var(--gradient-plus-card);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  margin-bottom: 32px;
+  box-shadow: 0 25px 50px -12px rgba(255, 37, 85, 0.05);
+  position: relative;
+}
+
+/* Animated border glow */
+.plus-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 17px;
+  padding: 1px;
+  background: linear-gradient(145deg, rgba(255, 37, 85, 0.4), transparent, rgba(255, 37, 85, 0.1));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: borderGlow 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Logo */
+.plus-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.plus-logo-gaana {
+  color: var(--gaana-red);
+  font-weight: 700;
+  font-size: 22px;
+  font-style: italic;
+  letter-spacing: -0.05em;
+}
+
+.plus-logo-plus {
+  color: white;
+  font-weight: 700;
+  font-size: 22px;
+  font-style: italic;
+  letter-spacing: -0.05em;
+}
+
+/* Heading */
+.plus-heading {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+/* Features list */
+.plus-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.plus-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+/* CTA Button */
+.plus-cta {
+  width: 100%;
+  background-color: white;
+  color: black;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: var(--radius-full);
+  padding: 14px;
+  margin-bottom: 16px;
+  transition: background-color 0.2s;
+  box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.1);
+}
+
+.plus-cta:hover {
+  background-color: #f3f4f6;
+}
+
+/* Pricing */
+.plus-pricing {
+  text-align: center;
+}
+
+.plus-price {
+  font-weight: 600;
+  font-size: 14px;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.plus-subtext {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* Feedback Tab */
+.feedback-tab {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--bg-card-hover);
+  border: 1px solid #2a2b36;
+  border-right: none;
+  padding: 16px 6px;
+  border-radius: 8px 0 0 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  z-index: 50;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.feedback-tab:hover {
+  background-color: #252631;
+}
+
+.feedback-text {
+  font-size: 11px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  transform: rotate(180deg);
+  display: block;
+}

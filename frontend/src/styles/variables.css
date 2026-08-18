@@ -1,0 +1,66 @@
+/* ============================================
+   Gaana Music Platform — Design Tokens
+   ============================================ */
+
+:root {
+  /* Brand */
+  --gaana-red: #ff2555;
+  --gaana-red-hover: #e01e48;
+  --gaana-red-light: #ff5e7e;
+
+  /* Surfaces */
+  --bg-dark: #0a0b10;
+  --bg-card: #15161d;
+  --bg-card-hover: #1c1d26;
+  --bg-hero: #120a16;
+  --bg-search: #1a1b24;
+
+  /* Text */
+  --text-white: #ffffff;
+  --text-gray: #a1a1aa;
+  --text-light: #e0e0e0;
+  --text-muted: #d1d5db;
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-light: rgba(255, 255, 255, 0.2);
+  --border-lighter: rgba(255, 255, 255, 0.3);
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(90deg, #ff2555 0%, #ff5e7e 100%);
+  --gradient-plus-card: linear-gradient(145deg, #180f1e 0%, #291228 100%);
+  --gradient-radio: linear-gradient(to bottom right, #1a1b26, #12131c);
+  --gradient-hero-overlay: linear-gradient(to right, #0d0714, rgba(13, 7, 20, 0.9), transparent);
+  --gradient-chart-overlay: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
+
+  /* Typography */
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Spacing */
+  --page-max-width: 1600px;
+  --page-padding: 32px;
+  --nav-height: 76px;
+  --section-gap: 48px;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-play: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-glow-red: 0 0 20px rgba(255, 37, 85, 0.6);
+
+  /* Mood tile colors */
+  --mood-romantic: #ff4b4b;
+  --mood-workout: #f5a623;
+  --mood-party: #4a90e2;
+  --mood-sad: #9013fe;
+  --mood-chill: #8b572a;
+  --mood-devotional: #f8e71c;
+  --mood-focus: #50e3c2;
+  --mood-happy: #f5a623;
+}
