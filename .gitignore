@@ -1,0 +1,45 @@
+# Root Git Ignore
+
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Production Build Output
+dist/
+dist-ssr/
+build/
+frontend/dist/
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+!frontend/.env.example
+
+# Design system generator caches
+.superdesign/
+
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.sw?
+*.swo
