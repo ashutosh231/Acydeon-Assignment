@@ -2,6 +2,8 @@ import { useRef, useState, useEffect } from 'react';
 import { usePlayer } from '../../context/PlayerContext';
 import './MusicCarousel.css';
 
+const DEFAULT_FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80';
+
 function MusicCarousel({
   id,
   title,
@@ -129,7 +131,16 @@ function MusicCarousel({
               >
                 <div className="station-disc-wrap">
                   {isThisPlaying && <div className="station-live-pulse" />}
-                  <img src={item.image} alt={item.title} className="station-disc-img" />
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="station-disc-img"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = DEFAULT_FALLBACK_IMAGE;
+                    }}
+                  />
                   <div className="station-disc-overlay" />
                   {isThisPlaying ? (
                     <div className="station-live-badge">
@@ -163,7 +174,16 @@ function MusicCarousel({
               >
                 <div className="round-artist-avatar-wrap">
                   {isThisPlaying && <div className="artist-playing-ring" />}
-                  <img src={item.image} alt={item.name} className="round-artist-avatar" />
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="round-artist-avatar"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = DEFAULT_FALLBACK_IMAGE;
+                    }}
+                  />
                   <div className="round-artist-overlay" />
                   {isThisPlaying ? (
                     <div className="round-artist-eq-badge">
@@ -195,7 +215,16 @@ function MusicCarousel({
                 aria-label={`Play ${item.name}`}
               >
                 <div className="star-image-wrap">
-                  <img src={item.image} alt={item.name} className="star-image" />
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="star-image"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = DEFAULT_FALLBACK_IMAGE;
+                    }}
+                  />
                   <div className="star-gradient-overlay" />
 
                   {isThisPlaying && (
@@ -241,7 +270,16 @@ function MusicCarousel({
               aria-label={`Play ${item.title || item.name}`}
             >
               <div className="card-artwork-wrap">
-                <img src={item.image} alt={item.title || item.name} className="card-artwork" />
+                <img
+                  src={item.image}
+                  alt={item.title || item.name}
+                  className="card-artwork"
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = DEFAULT_FALLBACK_IMAGE;
+                  }}
+                />
                 <div className="card-artwork-overlay" />
 
                 {item.badge && <span className="card-lang-badge">{item.badge}</span>}
