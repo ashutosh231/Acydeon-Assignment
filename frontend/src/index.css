@@ -1,0 +1,215 @@
+/* ============================================
+   Gaana Music Platform — Global Styles
+   ============================================ */
+
+@import './styles/variables.css';
+@import './styles/animations.css';
+
+/* Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Display font utility */
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Text gradient utility */
+.text-gradient {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Brand gradient background utility */
+.brand-gradient {
+  background: var(--gradient-brand);
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Button resets */
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+}
+
+/* Image defaults */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Input resets */
+input {
+  font-family: inherit;
+  border: none;
+  outline: none;
+}
+
+/* List resets */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Section styling */
+.section-block {
+  margin-bottom: var(--section-gap);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.view-all-link {
+  color: var(--gaana-red);
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.view-all-link:hover {
+  opacity: 0.85;
+  text-decoration: underline;
+}
+
+/* Top Section Row (Charts + Trending on left, Gaana Plus on right) */
+.top-layout-row {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.top-layout-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.top-layout-side {
+  width: 360px;
+  flex-shrink: 0;
+}
+
+/* Moods & Radio Side-by-Side Layout */
+.moods-radio-layout {
+  display: flex;
+  gap: 28px;
+  align-items: stretch;
+}
+
+.moods-main-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-sidebar-col {
+  width: 380px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Page layout */
+.page-content {
+  padding: 0 var(--page-padding);
+  padding-top: 24px;
+  padding-bottom: 110px; /* Space above sticky player */
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  width: 100%;
+  flex: 1;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+  .top-layout-row,
+  .moods-radio-layout {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .top-layout-side,
+  .radio-sidebar-col {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --page-padding: 24px;
+    --section-gap: 40px;
+  }
+  .section-title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --page-padding: 16px;
+    --section-gap: 36px;
+  }
+  .page-content {
+    padding-top: 16px;
+    padding-bottom: 90px;
+  }
+  .section-title {
+    font-size: 19px;
+  }
+}
+
+@media (max-width: 390px) {
+  :root {
+    --page-padding: 14px;
+    --section-gap: 32px;
+  }
+  .section-title {
+    font-size: 18px;
+  }
+}
