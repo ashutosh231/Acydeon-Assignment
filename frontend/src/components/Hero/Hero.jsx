@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react';
 import { heroImage } from '../../data/content';
 import { usePlayer } from '../../context/PlayerContext';
-import { verifiedDemoTracks } from '../../services/youtubeApi';
 import FloatingNotes from './FloatingNotes';
 import './Hero.css';
 
@@ -80,7 +79,7 @@ function Hero() {
         <div className="hero-ctas">
           <button
             className="brand-gradient hero-btn-primary btn-glow"
-            onClick={() => playTrack(currentTrack || verifiedDemoTracks[0])}
+            onClick={() => playTrack(currentTrack)}
             aria-label="Start streaming music"
           >
             Try Gaana Plus Free

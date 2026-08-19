@@ -96,24 +96,26 @@ function MusicCarousel({
             if (item.topSong) {
               playTrack({
                 id: item.id,
-                videoId: item.topSong.videoId || item.videoId,
                 name: item.topSong.name,
                 title: item.topSong.name,
                 artist: item.topSong.artist,
+                artwork: item.image,
                 image: item.image,
                 thumbnail: item.image,
-                duration: item.topSong.duration || 210,
+                previewUrl: item.topSong.previewUrl || item.previewUrl || null,
+                duration: item.topSong.duration || 30,
               });
             } else {
               playTrack({
                 id: item.id,
-                videoId: item.videoId,
                 name: item.title || item.name,
                 title: item.title || item.name,
                 artist: item.subtitle || item.tagline || item.label || 'Gaana Original',
+                artwork: item.image,
                 image: item.image,
                 thumbnail: item.image,
-                duration: 210,
+                previewUrl: item.previewUrl || null,
+                duration: item.duration || 30,
               });
             }
           };

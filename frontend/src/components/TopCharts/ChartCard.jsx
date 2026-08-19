@@ -5,21 +5,25 @@ function ChartCard({ chart }) {
   const isThisPlaying =
     isPlaying &&
     (currentTrack.name === chart.topSong?.name ||
-      currentTrack.id === chart.id);
+      currentTrack.title === chart.topSong?.name ||
+      String(currentTrack.id) === String(chart.id));
 
   const handlePlay = (e) => {
     e.stopPropagation();
     if (chart.topSong) {
       playTrack({
         id: chart.id,
-        videoId: chart.topSong.videoId || chart.videoId,
         name: chart.topSong.name,
         title: chart.topSong.name,
         artist: chart.topSong.artist,
+        artwork: chart.image,
         image: chart.image,
         thumbnail: chart.image,
-        duration: chart.topSong.duration,
+        previewUrl: chart.topSong.previewUrl || chart.previewUrl || null,
+        duration: chart.topSong.duration || 30,
       });
+    } else {
+      playTrack(chart);
     }
   };
 
@@ -32,7 +36,7 @@ function ChartCard({ chart }) {
       aria-label={`Play ${chart.description}`}
     >
       <img
-        src={chart.image}
+        src={chart.artwork || chart.image}
         className="chart-card-img"
         alt={chart.description}
       />

@@ -35,7 +35,7 @@ function MoodsGenres() {
             selectedMood === mood.id ||
             (isPlaying &&
               radioInfo?.songs?.some(
-                (s) => s.videoId === currentTrack?.videoId || s.name === currentTrack?.name
+                (s) => String(s.id) === String(currentTrack?.id) || s.name === currentTrack?.name
               ));
 
           return (

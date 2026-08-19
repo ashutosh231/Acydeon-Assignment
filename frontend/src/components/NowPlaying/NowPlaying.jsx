@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { usePlayer } from '../../context/PlayerContext';
-import YouTubeMiniPlayer from '../YouTubeMiniPlayer';
 import './NowPlaying.css';
 
 function NowPlaying() {
@@ -26,6 +25,7 @@ function NowPlaying() {
     playlist,
     playTrack,
     formatTime,
+    playerError,
   } = usePlayer();
 
   const [showQueue, setShowQueue] = useState(false);
@@ -130,9 +130,6 @@ function NowPlaying() {
   return (
     <>
       <div className={`now-playing ${isPlaying ? 'is-playing' : ''}`}>
-        {/* Background YouTube engine */}
-        <YouTubeMiniPlayer />
-
         {/* Left: Album Artwork + Track Details + Like */}
         <div className="np-song-info">
           <div className={`np-thumb-wrap ${isPlaying ? 'thumb-playing' : ''}`}>
@@ -147,6 +144,15 @@ function NowPlaying() {
           <div className="np-details">
             <div className="np-title-row">
               <p className="np-song-name">{currentTrack.name || currentTrack.title}</p>
+              {playerError ? (
+                <span className="np-preview-tag error-tag" title={playerError}>
+                  {playerError}
+                </span>
+              ) : currentTrack.previewUrl ? (
+                <span className="np-preview-tag" title="Deezer 30s MP3 Preview">
+                  Preview
+                </span>
+              ) : null}
               {isPlaying && (
                 <div className="np-live-eq">
                   <span className="eq-bar-anim bar-1" />
@@ -161,7 +167,7 @@ function NowPlaying() {
           <button
             className={`np-icon-btn ${isLiked ? 'liked' : ''}`}
             aria-label={isLiked ? 'Unlike song' : 'Like song'}
-            onClick={toggleLike}
+            onClick={() => toggleLike(currentTrack.id)}
             title={isLiked ? 'Liked' : 'Like'}
           >
             <iconify-icon
@@ -198,7 +204,7 @@ function NowPlaying() {
               className={`np-play-btn ${isPlaying ? 'playing' : ''}`}
               aria-label={isPlaying ? 'Pause' : 'Play'}
               onClick={togglePlay}
-              title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
+              title={isPlaying ? 'Pause' : 'Play'}
             >
               <iconify-icon
                 icon={isPlaying ? 'lucide:pause' : 'lucide:play'}
@@ -320,12 +326,12 @@ function NowPlaying() {
             />
           </div>
 
-          {/* Fullscreen Cinema Popout Button */}
+          {/* Fullscreen Visualizer Modal Button */}
           <button
             className={`np-icon-btn ${showCinemaModal ? 'active-control' : ''}`}
-            aria-label="Cinema Video Mode"
+            aria-label="Fullscreen Player Mode"
             onClick={() => setShowCinemaModal((prev) => !prev)}
-            title="Watch Official Music Video"
+            title="Fullscreen Visualizer Player"
           >
             <iconify-icon icon="lucide:maximize-2" style={{ fontSize: '15px' }}></iconify-icon>
           </button>
@@ -350,13 +356,13 @@ function NowPlaying() {
           <div className="queue-track-list">
             {playlist.map((track, idx) => {
               const isCurrent =
-                (track.videoId && track.videoId === currentTrack.videoId) ||
                 track.id === currentTrack.id ||
-                track.name === currentTrack.name;
+                track.name === currentTrack.name ||
+                track.title === currentTrack.title;
 
               return (
                 <div
-                  key={track.id || track.videoId || idx}
+                  key={track.id || idx}
                   className={`queue-track-item ${isCurrent ? 'current-queue-item' : ''}`}
                   onClick={() => {
                     playTrack(track);
@@ -430,34 +436,96 @@ function NowPlaying() {
       )}
 
       {/* =========================================================
-          INTERACTIVE OVERLAY 3: Cinema Music Video Modal
+          INTERACTIVE OVERLAY 3: Fullscreen Visualizer Player Modal
           ========================================================= */}
       {showCinemaModal && (
         <div className="np-cinema-modal-backdrop" onClick={() => setShowCinemaModal(false)}>
           <div className="np-cinema-modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="cinema-modal-header">
               <div className="cinema-title-wrap">
-                <span className="cinema-badge">HD Music Video</span>
+                <span className="cinema-badge">HD Lossless • 320 kbps</span>
                 <h3 className="cinema-song-title">{currentTrack.name || currentTrack.title}</h3>
                 <span className="cinema-artist">{currentTrack.artist}</span>
               </div>
               <button
                 className="cinema-close-btn"
                 onClick={() => setShowCinemaModal(false)}
-                aria-label="Close Cinema Mode"
+                aria-label="Close Fullscreen View"
               >
                 <iconify-icon icon="lucide:x" style={{ fontSize: '20px' }}></iconify-icon>
               </button>
             </div>
 
-            <div className="cinema-video-frame-wrap">
-              <iframe
-                title={currentTrack.name || currentTrack.title}
-                src={`https://www.youtube-nocookie.com/embed/${currentTrack.videoId}?autoplay=1&enablejsapi=1&rel=0&modestbranding=1`}
-                className="cinema-iframe"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
+            <div className="cinema-visualizer-wrap">
+              <div
+                className="cinema-backdrop-blur"
+                style={{ backgroundImage: `url(${currentTrack.thumbnail || currentTrack.image})` }}
               />
+              <div className="cinema-art-card">
+                <div className={`cinema-art-ring ${isPlaying ? 'art-playing' : ''}`}>
+                  <img
+                    src={currentTrack.thumbnail || currentTrack.image}
+                    alt={currentTrack.name || currentTrack.title}
+                    className="cinema-art-img"
+                  />
+                </div>
+                {isPlaying && (
+                  <div className="cinema-waves">
+                    <span className="wave-bar w1" />
+                    <span className="wave-bar w2" />
+                    <span className="wave-bar w3" />
+                    <span className="wave-bar w4" />
+                    <span className="wave-bar w5" />
+                    <span className="wave-bar w6" />
+                    <span className="wave-bar w7" />
+                  </div>
+                )}
+              </div>
+
+              <div className="cinema-modal-player-bar">
+                <div className="cinema-controls-row">
+                  <button className="np-icon-btn" onClick={prevTrack} aria-label="Previous">
+                    <iconify-icon icon="lucide:skip-back" style={{ fontSize: '22px' }}></iconify-icon>
+                  </button>
+                  <button
+                    className={`np-play-btn ${isPlaying ? 'playing' : ''}`}
+                    onClick={togglePlay}
+                    aria-label={isPlaying ? 'Pause' : 'Play'}
+                    style={{ width: '48px', height: '48px' }}
+                  >
+                    <iconify-icon
+                      icon={isPlaying ? 'lucide:pause' : 'lucide:play'}
+                      style={{ fontSize: '24px', marginLeft: isPlaying ? '0' : '2px' }}
+                    ></iconify-icon>
+                  </button>
+                  <button className="np-icon-btn" onClick={nextTrack} aria-label="Next">
+                    <iconify-icon icon="lucide:skip-forward" style={{ fontSize: '22px' }}></iconify-icon>
+                  </button>
+                </div>
+                <div className="cinema-progress-row">
+                  <span className="np-time">{formatTime(displayTime)}</span>
+                  <div
+                    className="np-progress-bar"
+                    ref={progressBarRef}
+                    onMouseDown={handleProgressBarMouseDown}
+                    role="slider"
+                    aria-valuenow={Math.round(displayTime)}
+                    aria-valuemin={0}
+                    aria-valuemax={Math.round(duration)}
+                    tabIndex={0}
+                  >
+                    <div
+                      className="np-progress-fill"
+                      style={{ width: `${Math.min(100, Math.max(0, progressPercent))}%` }}
+                    />
+                    <div
+                      className="np-progress-dot"
+                      style={{ left: `${Math.min(100, Math.max(0, progressPercent))}%` }}
+                    />
+                  </div>
+                  <span className="np-time">{formatTime(duration)}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

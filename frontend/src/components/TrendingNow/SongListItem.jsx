@@ -2,12 +2,15 @@ import { usePlayer } from '../../context/PlayerContext';
 
 function SongListItem({ song }) {
   const { currentTrack, isPlaying, playTrack } = usePlayer();
-  const isThisPlaying = isPlaying && currentTrack.id === song.id;
+  const isThisPlaying = isPlaying && String(currentTrack.id) === String(song.id);
 
   const handlePlay = (e) => {
     e.stopPropagation();
     playTrack(song);
   };
+
+  const songName = song.name || song.title;
+  const songImage = song.artwork || song.image || song.thumbnail;
 
   return (
     <div
@@ -15,10 +18,10 @@ function SongListItem({ song }) {
       onClick={() => playTrack(song)}
       tabIndex={0}
       role="button"
-      aria-label={`Play ${song.name}`}
+      aria-label={`Play ${songName}`}
     >
       <div className="song-thumb">
-        <img src={song.image} alt={song.name} />
+        <img src={songImage} alt={songName} />
         {isThisPlaying ? (
           <div className="song-playing-eq-overlay">
             <span className="eq-bar-anim bar-1" />
@@ -31,7 +34,7 @@ function SongListItem({ song }) {
       </div>
       <div className="song-info">
         <p className={`song-name ${isThisPlaying ? 'active-song-name' : ''}`}>
-          {song.name}
+          {songName}
         </p>
         <p className="song-artist">{song.artist}</p>
       </div>

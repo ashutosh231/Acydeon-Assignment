@@ -12,13 +12,13 @@ function GaanaRadio() {
     } else {
       playTrack({
         id: `radio-${selectedMood}`,
-        videoId: 'gRR34kv4N8w',
         name: currentRadio.title,
         title: currentRadio.title,
         artist: 'Gaana Radio Stream',
+        artwork: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
         image: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
         thumbnail: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-        duration: 3600,
+        duration: 180,
       });
     }
   };
@@ -26,7 +26,7 @@ function GaanaRadio() {
   const isRadioPlaying =
     isPlaying &&
     currentRadio.songs?.some(
-      (s) => s.videoId === currentTrack?.videoId || s.name === currentTrack?.name
+      (s) => String(s.id) === String(currentTrack?.id) || s.name === currentTrack?.name
     );
 
   return (

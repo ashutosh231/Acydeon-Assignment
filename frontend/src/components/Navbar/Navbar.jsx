@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { navLinks } from '../../data/content';
-import { searchMusic } from '../../services/youtubeApi';
+import { searchSongs } from '../../services/musicApi';
+import { searchLocalMusic } from '../../services/musicService';
 import { usePlayer } from '../../context/PlayerContext';
 import './Navbar.css';
 
@@ -12,7 +13,7 @@ function Navbar() {
   const [showResults, setShowResults] = useState(false);
   const searchContainerRef = useRef(null);
 
-  // Debounced search logic for YouTube Music
+  // Debounced search logic querying Backend Deezer API with local fallback
   useEffect(() => {
     const query = searchQuery.trim();
     if (query.length < 2) {
@@ -22,15 +23,19 @@ function Navbar() {
     const timeoutId = setTimeout(async () => {
       setIsSearching(true);
       try {
-        const results = await searchMusic(query, 8);
+        let results = await searchSongs(query, 8);
+        if (!results || results.length === 0) {
+          results = searchLocalMusic(query, 8);
+        }
         setSearchResults(results);
       } catch (err) {
-        console.warn('YouTube search error:', err);
-        setSearchResults([]);
+        console.warn('Search error, using local fallback:', err);
+        const fallbackResults = searchLocalMusic(query, 8);
+        setSearchResults(fallbackResults);
       } finally {
         setIsSearching(false);
       }
-    }, 350);
+    }, 300);
 
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
@@ -83,7 +88,7 @@ function Navbar() {
             <iconify-icon icon="lucide:search" class="search-icon"></iconify-icon>
             <input
               type="text"
-              placeholder="Search songs, artists, albums, music videos..."
+              placeholder="Search songs, artists, albums, playlists..."
               className="search-input"
               value={searchQuery}
               onChange={handleInputChange}
@@ -106,23 +111,23 @@ function Navbar() {
                 {isSearching ? (
                   <div className="search-status-item">
                     <iconify-icon icon="lucide:loader-2" class="search-spin-icon"></iconify-icon>
-                    <span>Searching YouTube Music...</span>
+                    <span>Searching songs & artists...</span>
                   </div>
                 ) : searchResults.length > 0 ? (
                   <div className="search-results-list">
                     <div className="search-results-header">
-                      <span>YouTube Music Results</span>
-                      <span className="search-count-badge">{searchResults.length} videos</span>
+                      <span>Search Results</span>
+                      <span className="search-count-badge">{searchResults.length} matches</span>
                     </div>
                     {searchResults.map((track) => {
                       const isThisPlaying =
                         isPlaying &&
-                        (currentTrack.videoId === track.videoId ||
+                        (currentTrack.id === track.id ||
                           currentTrack.name === track.name ||
                           currentTrack.title === track.title);
                       return (
                         <div
-                          key={track.id || track.videoId}
+                          key={track.id}
                           className={`search-result-item ${isThisPlaying ? 'active-search-item' : ''}`}
                           onClick={() => handleTrackClick(track)}
                           role="button"
@@ -152,7 +157,7 @@ function Navbar() {
                 ) : (
                   <div className="search-status-item search-empty">
                     <iconify-icon icon="lucide:music-2" style={{ fontSize: '20px', color: '#ff2555' }}></iconify-icon>
-                    <p>No videos found for "{searchQuery}"</p>
+                    <p>No songs found for "{searchQuery}"</p>
                     <span className="search-empty-sub">Try searching for songs like Husn, Kesariya, or Tauba Tauba.</span>
                   </div>
                 )}
