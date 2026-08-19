@@ -142,3 +142,37 @@
   transform: rotate(180deg);
   display: block;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .feedback-tab {
+    display: none;
+  }
+}
+
+@media (max-width: 390px) {
+  .plus-card {
+    padding: 20px 16px;
+    margin-bottom: 24px;
+    border-radius: var(--radius-lg);
+  }
+  .plus-heading {
+    font-size: 17px;
+    margin-bottom: 16px;
+  }
+  .plus-features {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .plus-feature {
+    font-size: 13px;
+    gap: 10px;
+  }
+  .plus-cta {
+    padding: 12px;
+    font-size: 14px;
+  }
+  .plus-price {
+    font-size: 13px;
+  }
+}

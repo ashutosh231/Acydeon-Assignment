@@ -595,11 +595,14 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .carousel-nav-arrows {
+    display: none;
+  }
   .standard-music-card {
-    width: 150px;
+    width: 148px;
   }
   .star-portrait-card {
-    width: 165px;
+    width: 160px;
   }
   .station-disc-wrap {
     width: 105px;
@@ -611,5 +614,104 @@
   }
   .carousel-track {
     gap: 14px;
+  }
+  .card-hover-play-btn,
+  .star-play-btn,
+  .station-play-btn,
+  .round-artist-play-icon {
+    opacity: 1;
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 390px) {
+  .carousel-header {
+    margin-bottom: 10px;
+  }
+  .carousel-subheading {
+    font-size: 11px;
+  }
+  .carousel-track {
+    gap: 11px;
+    padding-bottom: 8px;
+  }
+  .standard-music-card {
+    width: 134px;
+  }
+  .card-artwork-wrap {
+    border-radius: var(--radius-md);
+  }
+  .card-lang-badge {
+    font-size: 9px;
+    padding: 2px 5px;
+    top: 6px;
+    left: 6px;
+  }
+  .card-metadata {
+    padding: 8px 2px 2px 2px;
+  }
+  .card-title {
+    font-size: 13px;
+  }
+  .card-subtitle {
+    font-size: 11px;
+  }
+  .card-hover-play-btn {
+    width: 30px;
+    height: 30px;
+    bottom: 6px;
+    right: 6px;
+  }
+  .star-portrait-card {
+    width: 140px;
+    border-radius: var(--radius-lg);
+  }
+  .star-image-wrap {
+    border-radius: var(--radius-lg);
+  }
+  .star-content-overlay {
+    padding: 12px 10px;
+  }
+  .star-name {
+    font-size: 14px;
+  }
+  .star-tagline {
+    font-size: 10.5px;
+  }
+  .star-play-btn {
+    width: 30px;
+    height: 30px;
+    top: 8px;
+    right: 8px;
+  }
+  .radio-station-card {
+    width: 114px;
+  }
+  .station-disc-wrap {
+    width: 92px;
+    height: 92px;
+    margin-bottom: 8px;
+  }
+  .station-title {
+    font-size: 12.5px;
+    max-width: 105px;
+  }
+  .station-sub {
+    font-size: 10.5px;
+  }
+  .round-artist-card {
+    width: 105px;
+  }
+  .round-artist-avatar-wrap {
+    width: 84px;
+    height: 84px;
+    margin-bottom: 8px;
+  }
+  .round-artist-name {
+    font-size: 12.5px;
+    max-width: 100px;
+  }
+  .round-artist-label {
+    font-size: 10.5px;
   }
 }

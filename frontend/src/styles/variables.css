@@ -38,10 +38,15 @@
   --font-body: 'Inter', sans-serif;
 
   /* Spacing */
-  --page-max-width: 1600px;
+  --page-max-width: 1440px;
   --page-padding: 32px;
-  --nav-height: 76px;
+  --page-padding-mobile: 14px;
+  --nav-height: 72px;
+  --nav-height-mobile: 60px;
+  --player-height: 76px;
+  --player-height-mobile: 66px;
   --section-gap: 48px;
+  --section-gap-mobile: 32px;
 
   /* Radii */
   --radius-sm: 4px;

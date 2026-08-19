@@ -438,16 +438,87 @@
 }
 
 @media (max-width: 640px) {
+  .radio-card {
+    padding: 20px 18px;
+    min-height: 200px;
+  }
+  .radio-content {
+    max-width: 190px;
+  }
+  .radio-title {
+    font-size: 22px;
+  }
+  .radio-desc {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
   .vinyl-wrapper {
-    width: 140px;
-    height: 140px;
+    width: 125px;
+    height: 125px;
   }
   .vinyl-disc {
-    width: 130px;
-    height: 130px;
+    width: 118px;
+    height: 118px;
   }
   .vinyl-center-label {
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
+  }
+  .vinyl-inner-ring {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 390px) {
+  .radio-card {
+    padding: 16px 14px;
+    min-height: 170px;
+    border-radius: var(--radius-lg);
+  }
+  .radio-content {
+    max-width: 165px;
+  }
+  .radio-title {
+    font-size: 19px;
+    margin-bottom: 4px;
+  }
+  .radio-desc {
+    font-size: 11.5px;
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .radio-cta-btn {
+    padding: 8px 14px;
+    font-size: 12px;
+    gap: 6px;
+  }
+  .vinyl-wrapper {
+    width: 95px;
+    height: 95px;
+    margin-right: -4px;
+  }
+  .vinyl-disc {
+    width: 90px;
+    height: 90px;
+  }
+  .vinyl-center-label {
+    width: 34px;
+    height: 34px;
+  }
+  .vinyl-inner-ring {
+    width: 24px;
+    height: 24px;
+  }
+  .vinyl-spindle-hole {
+    width: 8px;
+    height: 8px;
+  }
+  .radio-soundwave {
+    width: 95px;
+    height: 95px;
+  }
+  .r-note-1, .r-note-2, .r-note-3, .r-note-4, .r-note-5 {
+    font-size: 15px;
   }
 }

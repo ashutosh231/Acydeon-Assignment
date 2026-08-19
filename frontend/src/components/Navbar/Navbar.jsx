@@ -11,7 +11,9 @@ function Navbar() {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const searchContainerRef = useRef(null);
+  const mobileSearchRef = useRef(null);
 
   // Debounced search logic querying Backend Deezer API with local fallback
   useEffect(() => {
@@ -46,6 +48,13 @@ function Navbar() {
       if (searchContainerRef.current && !searchContainerRef.current.contains(e.target)) {
         setShowResults(false);
       }
+      if (
+        mobileSearchRef.current &&
+        !mobileSearchRef.current.contains(e.target) &&
+        !e.target.closest('#mobile-search-toggle-btn')
+      ) {
+        // keep mobile open if clicking within
+      }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -71,19 +80,20 @@ function Navbar() {
   const handleTrackClick = (track) => {
     playTrack(track);
     handleClear();
+    setIsMobileSearchOpen(false);
   };
 
   return (
     <header className="navbar">
       <div className="navbar-inner">
-        {/* Left: Logo + Search */}
+        {/* Left: Logo + Desktop Search */}
         <div className="navbar-left">
           <a href="#hero" id="nav-logo" className="navbar-logo font-display">
             gaana
             <span className="logo-note">♪</span>
           </a>
 
-          {/* Search Bar & Live Dropdown */}
+          {/* Desktop Search Bar & Live Dropdown */}
           <div className="navbar-search" ref={searchContainerRef}>
             <iconify-icon icon="lucide:search" class="search-icon"></iconify-icon>
             <input
@@ -166,7 +176,7 @@ function Navbar() {
           </div>
         </div>
 
-        {/* Center: Nav Links */}
+        {/* Center: Nav Links (Desktop) */}
         <nav className="navbar-nav">
           {navLinks.map((link) => (
             <a
@@ -180,10 +190,20 @@ function Navbar() {
           ))}
         </nav>
 
-        {/* Right: CTAs + Profile */}
+        {/* Right: CTAs + Mobile Search Toggle + Profile */}
         <div className="navbar-right">
+          {/* Mobile Search Button */}
+          <button
+            id="mobile-search-toggle-btn"
+            className={`btn-mobile-search ${isMobileSearchOpen ? 'active' : ''}`}
+            onClick={() => setIsMobileSearchOpen((prev) => !prev)}
+            aria-label="Toggle mobile search"
+          >
+            <iconify-icon icon={isMobileSearchOpen ? 'lucide:x' : 'lucide:search'} style={{ fontSize: '18px' }}></iconify-icon>
+          </button>
+
           <button className="btn-get-plus" id="nav-plus-btn">
-            Get Gaana Plus
+            <span>Get Gaana Plus</span>
           </button>
           <button className="btn-get-app" id="nav-app-btn">
             Get App
@@ -193,6 +213,90 @@ function Navbar() {
           </button>
         </div>
       </div>
+
+      {/* Mobile Search Overlay Bar */}
+      {isMobileSearchOpen && (
+        <div className="mobile-search-bar-wrap" ref={mobileSearchRef}>
+          <div className="mobile-search-inner">
+            <iconify-icon icon="lucide:search" class="mobile-search-icon"></iconify-icon>
+            <input
+              type="text"
+              placeholder="Search songs, artists, albums..."
+              className="mobile-search-input"
+              value={searchQuery}
+              onChange={handleInputChange}
+              autoFocus
+              aria-label="Mobile Search"
+            />
+            {searchQuery && (
+              <button className="mobile-search-clear-btn" onClick={handleClear} aria-label="Clear">
+                <iconify-icon icon="lucide:x" style={{ fontSize: '14px' }}></iconify-icon>
+              </button>
+            )}
+            <button
+              className="mobile-search-close-btn"
+              onClick={() => setIsMobileSearchOpen(false)}
+              aria-label="Close search"
+            >
+              Cancel
+            </button>
+          </div>
+
+          {/* Live Mobile Search Results */}
+          {searchQuery.trim().length >= 2 && (
+            <div className="mobile-search-results-dropdown">
+              {isSearching ? (
+                <div className="search-status-item">
+                  <iconify-icon icon="lucide:loader-2" class="search-spin-icon"></iconify-icon>
+                  <span>Searching...</span>
+                </div>
+              ) : searchResults.length > 0 ? (
+                <div className="search-results-list">
+                  {searchResults.map((track) => {
+                    const isThisPlaying =
+                      isPlaying &&
+                      (currentTrack.id === track.id ||
+                        currentTrack.name === track.name ||
+                        currentTrack.title === track.title);
+                    return (
+                      <div
+                        key={track.id}
+                        className={`search-result-item ${isThisPlaying ? 'active-search-item' : ''}`}
+                        onClick={() => handleTrackClick(track)}
+                        role="button"
+                        tabIndex={0}
+                      >
+                        <div className="search-thumb-wrap">
+                          <img
+                            src={track.thumbnail || track.image}
+                            alt={track.title || track.name}
+                            className="search-thumb"
+                          />
+                          <div className="search-play-overlay">
+                            <iconify-icon
+                              icon={isThisPlaying ? 'lucide:pause' : 'lucide:play'}
+                              style={{ fontSize: '12px', color: '#ffffff' }}
+                            ></iconify-icon>
+                          </div>
+                        </div>
+                        <div className="search-item-info">
+                          <p className="search-item-title">{track.title || track.name}</p>
+                          <p className="search-item-artist">{track.artist}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="search-status-item search-empty">
+                  <iconify-icon icon="lucide:music-2" style={{ fontSize: '18px', color: '#ff2555' }}></iconify-icon>
+                  <p>No results found for "{searchQuery}"</p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
     </header>
   );
 }

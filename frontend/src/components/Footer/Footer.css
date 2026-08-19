@@ -382,14 +382,21 @@
 }
 
 @media (max-width: 768px) {
+  .footer-master {
+    margin-top: 48px;
+    padding-top: 36px;
+  }
+
   .footer-top-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 28px;
+    padding-bottom: 28px;
   }
 
   .footer-quick-bar {
     gap: 14px;
     justify-content: flex-start;
+    margin-bottom: 32px;
   }
 
   .quick-bar-item-wrap {
@@ -397,8 +404,9 @@
   }
 
   .footer-directory-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 36px;
   }
 
   .footer-copyright-bar {
@@ -413,16 +421,85 @@
 }
 
 @media (max-width: 480px) {
+  .footer-master {
+    margin-top: 36px;
+    padding-top: 28px;
+  }
+
   .footer-directory-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 14px;
   }
 
   .footer-badges-row {
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
+    gap: 8px;
   }
 
   .store-badge-btn {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
+    padding: 7px 10px;
+    gap: 8px;
+  }
+
+  .store-badge-sub {
+    font-size: 8.5px;
+  }
+
+  .store-badge-main {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 390px) {
+  .footer-brand-logo {
+    font-size: 26px;
+  }
+
+  .footer-brand-tagline {
+    font-size: 14.5px;
+  }
+
+  .footer-brand-desc,
+  .footer-brand-subdesc,
+  .footer-social-text,
+  .footer-app-desc {
+    font-size: 11.5px;
+    line-height: 1.5;
+  }
+
+  .social-icon-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
+  }
+
+  .footer-quick-bar {
+    padding: 10px 0;
+    gap: 10px;
+  }
+
+  .quick-bar-item-wrap {
+    gap: 10px;
+  }
+
+  .quick-bar-link {
+    font-size: 11.5px;
+  }
+
+  .directory-title {
+    font-size: 12.5px;
+  }
+
+  .directory-link {
+    font-size: 11px;
+  }
+
+  .footer-copy-text,
+  .footer-copyright-center,
+  .footer-copyright-right {
+    font-size: 11px;
   }
 }

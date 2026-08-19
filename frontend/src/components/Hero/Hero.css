@@ -254,7 +254,14 @@
   .hero-container {
     height: auto;
     min-height: 360px;
-    padding: 32px 20px;
+    padding: 28px 18px;
+    border-radius: var(--radius-lg);
+  }
+  .hero-sound-toggle-btn {
+    top: 14px;
+    right: 14px;
+    padding: 6px 12px;
+    font-size: 12px;
   }
   .hero-content {
     padding-left: 0;
@@ -262,54 +269,85 @@
     width: 100%;
   }
   .hero-title {
-    font-size: 34px;
-    margin-bottom: 16px;
+    font-size: 32px;
+    margin-bottom: 14px;
   }
   .hero-title-accent,
   .animated-title-gradient {
-    font-size: 38px;
+    font-size: 36px;
   }
   .hero-subtitle {
-    font-size: 14px;
+    font-size: 13.5px;
+    line-height: 1.5;
   }
   .hero-subtitle-second {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
   .hero-overlay {
     width: 100%;
     background: linear-gradient(
-      to right,
-      rgba(13, 7, 20, 0.95) 0%,
-      rgba(13, 7, 20, 0.85) 60%,
-      rgba(13, 7, 20, 0.4) 100%
+      to bottom,
+      rgba(13, 7, 20, 0.75) 0%,
+      rgba(13, 7, 20, 0.92) 50%,
+      rgba(13, 7, 20, 0.98) 100%
     );
   }
   .hero-bg-video,
   .hero-bg-image {
     width: 100%;
-    opacity: 0.55;
+    opacity: 0.45;
   }
   .hero-ctas {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
-    margin-bottom: 16px;
+    gap: 10px;
+    margin-bottom: 14px;
   }
   .hero-btn-primary,
   .hero-btn-secondary {
     text-align: center;
     justify-content: center;
-    padding: 12px 24px;
+    padding: 12px 20px;
     font-size: 14px;
+    min-height: 44px;
   }
 }
 
 @media (max-width: 390px) {
+  .hero-container {
+    min-height: 340px;
+    padding: 22px 14px;
+    margin-bottom: var(--section-gap-mobile);
+  }
+  .hero-sound-toggle-btn {
+    top: 12px;
+    right: 12px;
+    padding: 5px 10px;
+    font-size: 11px;
+    gap: 5px;
+  }
   .hero-title {
-    font-size: 28px;
+    font-size: 26px;
+    line-height: 1.15;
+    margin-bottom: 10px;
   }
   .hero-title-accent,
   .animated-title-gradient {
-    font-size: 32px;
+    font-size: 29px;
+  }
+  .hero-subtitle {
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+  .hero-subtitle-second {
+    margin-bottom: 16px;
+  }
+  .hero-btn-primary,
+  .hero-btn-secondary {
+    padding: 11px 16px;
+    font-size: 13px;
+  }
+  .hero-trust {
+    font-size: 11px;
   }
 }

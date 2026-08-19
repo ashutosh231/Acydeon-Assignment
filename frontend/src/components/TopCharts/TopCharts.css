@@ -217,8 +217,37 @@
     display: none;
   }
   .chart-card {
-    min-width: 160px;
+    min-width: 145px;
     flex-shrink: 0;
     scroll-snap-align: start;
+  }
+  .chart-play-btn {
+    opacity: 1;
+    transform: scale(0.9);
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 390px) {
+  .chart-card {
+    min-width: 138px;
+  }
+  .chart-card-overlay {
+    padding: 12px;
+    padding-bottom: 14px;
+  }
+  .chart-card-title {
+    font-size: 16px;
+  }
+  .chart-card-desc {
+    font-size: 11px;
+    margin-top: 4px;
+  }
+  .chart-play-btn {
+    width: 32px;
+    height: 32px;
+    bottom: 8px;
+    right: 8px;
   }
 }

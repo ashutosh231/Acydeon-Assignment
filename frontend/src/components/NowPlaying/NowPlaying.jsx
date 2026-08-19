@@ -43,11 +43,13 @@ function NowPlaying() {
   const displayTime = isDraggingProgress ? dragProgressTime : currentTime;
   const progressPercent = duration > 0 ? (displayTime / duration) * 100 : 0;
 
-  // Handle Progress Bar Click & Drag
+  // Handle Progress Bar Click, Drag & Touch
   const handleSeekFromEvent = useCallback((e) => {
     if (!progressBarRef.current || duration <= 0) return;
+    const clientX = e.touches && e.touches.length > 0 ? e.touches[0].clientX : e.clientX;
+    if (typeof clientX !== 'number') return;
     const rect = progressBarRef.current.getBoundingClientRect();
-    const clickX = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+    const clickX = Math.max(0, Math.min(clientX - rect.left, rect.width));
     const percent = clickX / rect.width;
     const targetSeconds = percent * duration;
     return targetSeconds;
@@ -58,6 +60,30 @@ function NowPlaying() {
     if (typeof targetSec === 'number') {
       setIsDraggingProgress(true);
       setDragProgressTime(targetSec);
+    }
+  };
+
+  const handleTouchStart = (e) => {
+    const targetSec = handleSeekFromEvent(e);
+    if (typeof targetSec === 'number') {
+      setIsDraggingProgress(true);
+      setDragProgressTime(targetSec);
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    if (isDraggingProgress) {
+      const targetSec = handleSeekFromEvent(e);
+      if (typeof targetSec === 'number') {
+        setDragProgressTime(targetSec);
+      }
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (isDraggingProgress) {
+      seekTrack(dragProgressTime);
+      setIsDraggingProgress(false);
     }
   };
 
@@ -111,7 +137,8 @@ function NowPlaying() {
       if (
         queueDrawerRef.current &&
         !queueDrawerRef.current.contains(e.target) &&
-        !e.target.closest('#np-queue-btn')
+        !e.target.closest('#np-queue-btn') &&
+        !e.target.closest('#np-mobile-queue-btn')
       ) {
         setShowQueue(false);
       }
@@ -130,8 +157,29 @@ function NowPlaying() {
   return (
     <>
       <div className={`now-playing ${isPlaying ? 'is-playing' : ''}`}>
-        {/* Left: Album Artwork + Track Details + Like */}
-        <div className="np-song-info">
+        {/* Top Seek Progress Line (Mobile & Desktop Accent) */}
+        <div
+          className="np-top-progress-bar"
+          ref={progressBarRef}
+          onMouseDown={handleProgressBarMouseDown}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          role="slider"
+          aria-valuenow={Math.round(displayTime)}
+          aria-valuemin={0}
+          aria-valuemax={Math.round(duration)}
+          tabIndex={0}
+          title="Click or drag to seek"
+        >
+          <div
+            className="np-top-progress-fill"
+            style={{ width: `${Math.min(100, Math.max(0, progressPercent))}%` }}
+          />
+        </div>
+
+        {/* Left: Album Artwork + Track Details + Desktop Like */}
+        <div className="np-song-info" onClick={() => setShowCinemaModal(true)} role="button" tabIndex={0}>
           <div className={`np-thumb-wrap ${isPlaying ? 'thumb-playing' : ''}`}>
             {isPlaying && <div className="np-thumb-glow-ring" />}
             <img
@@ -165,9 +213,12 @@ function NowPlaying() {
           </div>
 
           <button
-            className={`np-icon-btn ${isLiked ? 'liked' : ''}`}
+            className={`np-icon-btn np-desktop-like-btn ${isLiked ? 'liked' : ''}`}
             aria-label={isLiked ? 'Unlike song' : 'Like song'}
-            onClick={() => toggleLike(currentTrack.id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleLike(currentTrack.id);
+            }}
             title={isLiked ? 'Liked' : 'Like'}
           >
             <iconify-icon
@@ -181,7 +232,67 @@ function NowPlaying() {
           </button>
         </div>
 
-        {/* Center: Playback Controls + Interactive Seek Bar */}
+        {/* Mobile Quick Action Controls */}
+        <div className="np-mobile-controls">
+          <button
+            className={`np-icon-btn ${isLiked ? 'liked' : ''}`}
+            aria-label={isLiked ? 'Unlike song' : 'Like song'}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleLike(currentTrack.id);
+            }}
+            title={isLiked ? 'Liked' : 'Like'}
+          >
+            <iconify-icon
+              icon={isLiked ? 'lucide:heart' : 'lucide:heart'}
+              style={{
+                fontSize: '19px',
+                color: isLiked ? '#ff2555' : 'inherit',
+                fill: isLiked ? '#ff2555' : 'none',
+              }}
+            ></iconify-icon>
+          </button>
+          <button
+            className={`np-play-btn ${isPlaying ? 'playing' : ''}`}
+            aria-label={isPlaying ? 'Pause' : 'Play'}
+            onClick={(e) => {
+              e.stopPropagation();
+              togglePlay();
+            }}
+            title={isPlaying ? 'Pause' : 'Play'}
+          >
+            <iconify-icon
+              icon={isPlaying ? 'lucide:pause' : 'lucide:play'}
+              style={{ fontSize: '20px', marginLeft: isPlaying ? '0' : '2px' }}
+            ></iconify-icon>
+          </button>
+          <button
+            className="np-icon-btn"
+            aria-label="Next track"
+            onClick={(e) => {
+              e.stopPropagation();
+              nextTrack();
+            }}
+            title="Next Track"
+          >
+            <iconify-icon icon="lucide:skip-forward" style={{ fontSize: '19px' }}></iconify-icon>
+          </button>
+          <button
+            className={`np-icon-btn ${showQueue ? 'active-control' : ''}`}
+            id="np-mobile-queue-btn"
+            aria-label="Queue"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowQueue((prev) => !prev);
+              setShowDevices(false);
+            }}
+            title="Queue"
+          >
+            <iconify-icon icon="lucide:list-music" style={{ fontSize: '19px' }}></iconify-icon>
+          </button>
+        </div>
+
+        {/* Center: Playback Controls + Interactive Seek Bar (Desktop) */}
         <div className="np-center">
           <div className="np-controls">
             <button
@@ -234,7 +345,6 @@ function NowPlaying() {
             <span className="np-time">{formatTime(displayTime)}</span>
             <div
               className="np-progress-bar"
-              ref={progressBarRef}
               onMouseDown={handleProgressBarMouseDown}
               role="slider"
               aria-valuenow={Math.round(displayTime)}
@@ -343,13 +453,14 @@ function NowPlaying() {
           ========================================================= */}
       {showQueue && (
         <div className="np-queue-drawer" ref={queueDrawerRef}>
+          <div className="bottom-sheet-handle-bar" onClick={() => setShowQueue(false)} />
           <div className="queue-drawer-header">
             <div className="queue-header-left">
               <iconify-icon icon="lucide:list-music" style={{ fontSize: '16px', color: '#ff2555' }}></iconify-icon>
               <h4>Up Next ({playlist.length})</h4>
             </div>
             <button className="queue-close-btn" onClick={() => setShowQueue(false)} aria-label="Close Queue">
-              <iconify-icon icon="lucide:x" style={{ fontSize: '15px' }}></iconify-icon>
+              <iconify-icon icon="lucide:x" style={{ fontSize: '16px' }}></iconify-icon>
             </button>
           </div>
 
@@ -402,9 +513,15 @@ function NowPlaying() {
           ========================================================= */}
       {showDevices && (
         <div className="np-devices-popup" ref={devicesPopupRef}>
+          <div className="bottom-sheet-handle-bar" onClick={() => setShowDevices(false)} />
           <div className="devices-header">
-            <iconify-icon icon="lucide:settings-2" style={{ fontSize: '15px', color: '#ff2555' }}></iconify-icon>
-            <h4>Audio Quality & Stream</h4>
+            <div className="devices-header-left">
+              <iconify-icon icon="lucide:settings-2" style={{ fontSize: '15px', color: '#ff2555' }}></iconify-icon>
+              <h4>Audio Quality & Stream</h4>
+            </div>
+            <button className="queue-close-btn" onClick={() => setShowDevices(false)} aria-label="Close settings">
+              <iconify-icon icon="lucide:x" style={{ fontSize: '15px' }}></iconify-icon>
+            </button>
           </div>
           <div className="devices-list">
             {[

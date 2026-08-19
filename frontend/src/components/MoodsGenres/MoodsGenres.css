@@ -164,3 +164,26 @@
     height: 28px;
   }
 }
+
+@media (max-width: 390px) {
+  .moods-grid {
+    gap: 8px;
+  }
+  .mood-card {
+    border-radius: 10px;
+  }
+  .mood-card-content {
+    padding: 8px;
+    gap: 6px;
+  }
+  .mood-card-title {
+    font-size: 13px;
+  }
+  .mood-card-subtitle {
+    font-size: 10px;
+  }
+  .mood-icon-badge {
+    width: 25px;
+    height: 25px;
+  }
+}
