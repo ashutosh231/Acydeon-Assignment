@@ -5,11 +5,13 @@
    ============================================ */
 
 const API_BASE_URLS = [
-  'http://localhost:3000/api/music',
+  import.meta.env.VITE_API_URL,
+  'https://acydeon-assignment-backend.onrender.com/api/music',
   '/api/music',
+  'http://localhost:3000/api/music',
   'http://localhost:5000/api/music',
   'http://localhost:5001/api/music',
-];
+].filter(Boolean);
 
 let workingBaseUrl = null;
 
@@ -36,7 +38,7 @@ async function fetchFromBackend(endpoint, params = {}) {
         },
       });
 
-      // AirTunes or misconfigured port returns 403 on Mac
+      // AirTunes or misconfigured local port returns 403 on Mac
       if (response.status === 403) {
         continue;
       }
