@@ -193,7 +193,7 @@ const fullSearchCatalog = buildSearchCatalog();
 /**
  * Local fallback search if backend network is unreachable
  */
-export function searchLocalMusic(query, maxResults = 8) {
+export function searchLocalMusic(query, maxResults = 12) {
   if (!query || typeof query !== 'string' || query.trim().length === 0) {
     return [];
   }
@@ -201,10 +201,13 @@ export function searchLocalMusic(query, maxResults = 8) {
   const q = query.trim().toLowerCase();
 
   const results = fullSearchCatalog.filter((track) => {
-    const titleMatch = track.title.toLowerCase().includes(q);
-    const nameMatch = track.name.toLowerCase().includes(q);
-    const artistMatch = track.artist.toLowerCase().includes(q);
-    return titleMatch || nameMatch || artistMatch;
+    if (!track) return false;
+    const titleMatch = (track.title || '').toLowerCase().includes(q);
+    const nameMatch = (track.name || '').toLowerCase().includes(q);
+    const artistMatch = (track.artist || '').toLowerCase().includes(q);
+    const albumMatch = (track.album || '').toLowerCase().includes(q);
+    const genreMatch = (track.genre || '').toLowerCase().includes(q);
+    return titleMatch || nameMatch || artistMatch || albumMatch || genreMatch;
   });
 
   return results.slice(0, maxResults);

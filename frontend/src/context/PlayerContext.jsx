@@ -268,18 +268,15 @@ export function PlayerProvider({ children }) {
         (t) => String(t.id) === String(track.id) || (t.title === track.title && t.artist === track.artist)
       );
       if (idx === -1) {
+        setCurrentTrackIndex(0);
         return [track, ...prev];
       } else {
         const updated = [...prev];
         updated[idx] = track; // Replace with fresh track object containing active token
+        setCurrentTrackIndex(idx);
         return updated;
       }
     });
-
-    const index = playlist.findIndex(
-      (t) => String(t.id) === String(track.id) || (t.title === track.title && t.artist === track.artist)
-    );
-    setCurrentTrackIndex(index === -1 ? 0 : index);
 
     setCurrentTime(0);
     setDuration(track.duration || 30);

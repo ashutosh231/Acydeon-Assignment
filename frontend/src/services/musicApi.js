@@ -32,11 +32,17 @@ async function fetchFromBackend(endpoint, params = {}) {
   for (const baseUrl of urlsToTry) {
     try {
       const fullUrl = `${baseUrl}${endpoint}${queryString ? `?${queryString}` : ''}`;
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3500);
+
       const response = await fetch(fullUrl, {
         headers: {
           Accept: 'application/json',
         },
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
 
       // AirTunes or misconfigured local port returns 403 on Mac
       if (response.status === 403) {
@@ -71,7 +77,18 @@ export async function searchSongs(query, limit = 25) {
   }
 
   const res = await fetchFromBackend('/search', { q: query.trim(), limit });
-  return Array.isArray(res.tracks) ? res.tracks : [];
+  const rawTracks = Array.isArray(res.tracks) ? res.tracks : [];
+  
+  // Ensure all track image properties are populated
+  return rawTracks.map((t) => {
+    const art = t.artwork || t.thumbnail || t.image || t.cover || null;
+    return {
+      ...t,
+      artwork: art,
+      thumbnail: art,
+      image: art,
+    };
+  });
 }
 
 /**
